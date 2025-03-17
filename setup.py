@@ -212,6 +212,5 @@ if __name__ == '__main__':
             'build': parse_requirements('requirements/build.txt'),
             'optional': parse_requirements('requirements/optional.txt'),
         },
-        ext_modules=get_extensions(),
         cmdclass=cmd_class,
         zip_safe=False)
