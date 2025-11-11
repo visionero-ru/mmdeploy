@@ -23,9 +23,14 @@ def readme():
 
 
 def get_version():
-    with open(os.path.join(pwd, version_file), 'r') as f:
-        exec(compile(f.read(), version_file, 'exec'))
-    return locals()['__version__']
+    frame_locals = {}
+    with open(os.path.join(pwd, version_file), 'r') as f:        
+        exec(
+            compile(f.read(), version_file, 'exec'),
+            globals(),
+            frame_locals
+        )
+    return frame_locals["__version__"]
 
 
 def parse_requirements(fname='requirements.txt', with_version=True):
@@ -204,13 +209,5 @@ if __name__ == '__main__':
         ],
         license='Apache License 2.0',
         setup_requires=parse_requirements('requirements/build.txt'),
-        tests_require=parse_requirements('requirements/tests.txt'),
-        install_requires=parse_requirements('requirements/runtime.txt'),
-        extras_require={
-            'all': parse_requirements('requirements.txt'),
-            'tests': parse_requirements('requirements/tests.txt'),
-            'build': parse_requirements('requirements/build.txt'),
-            'optional': parse_requirements('requirements/optional.txt'),
-        },
         cmdclass=cmd_class,
         zip_safe=False)
