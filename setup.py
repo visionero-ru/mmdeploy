@@ -208,6 +208,7 @@ if __name__ == '__main__':
             'Programming Language :: Python :: 3.8',
         ],
         license='Apache License 2.0',
+        install_requires=parse_requirements('requirements/runtime.txt'),
         setup_requires=parse_requirements('requirements/build.txt'),
         cmdclass=cmd_class,
         zip_safe=False)
